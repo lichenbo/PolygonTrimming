@@ -73,6 +73,7 @@
             this.txtImg.Name = "txtImg";
             this.txtImg.Size = new System.Drawing.Size(124, 186);
             this.txtImg.TabIndex = 3;
+            this.txtImg.Text = "1,1\r\n180,20\r\n100,150\r\n1,40";
             // 
             // txtWindow
             // 
@@ -81,13 +82,14 @@
             this.txtWindow.Name = "txtWindow";
             this.txtWindow.Size = new System.Drawing.Size(124, 185);
             this.txtWindow.TabIndex = 4;
+            this.txtWindow.Text = "50,50\r\n150,50\r\n150,150\r\n50,150";
             // 
             // comboAlgo
             // 
             this.comboAlgo.FormattingEnabled = true;
             this.comboAlgo.Items.AddRange(new object[] {
-            "Sutherland-Hodgman",
-            "Weilerr-Atherton"});
+            "Weilerr-Atherton",
+            "Liang-Barsky"});
             this.comboAlgo.Location = new System.Drawing.Point(408, 178);
             this.comboAlgo.Name = "comboAlgo";
             this.comboAlgo.Size = new System.Drawing.Size(145, 20);
