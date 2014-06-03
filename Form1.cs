@@ -30,7 +30,7 @@ namespace PolygonTrimming
             if (comboAlgo.Text != "")
             {
                 AlgorithmBuilder algo = new AlgorithmBuilder(comboAlgo.Text);
-                algo.getAlgo().apply(bmpClip);
+                lpResult = algo.getAlgo().apply(lpImg, lpWindow);
             }
         }
 
@@ -113,21 +113,56 @@ namespace PolygonTrimming
 
     public interface Algorithm 
     {
-        void apply(Bitmap bmp);   
+        List<Point> apply(List<Point> lpImg, List<Point> lpWindow, Bitmap bmp);   
     }
 
     public class WeilerrAtherton : Algorithm
     {
-        public void apply(Bitmap bmp)
+        public List<Point> apply(List<Point> lpImg, List<Point> lpWindow, Bitmap bmp)
         {
             Console.WriteLine("WeilerrAtherton Algorithm");
         
+        }
+
+
+        /// <summary>
+        /// 边重合的条件没有判断
+        /// </summary>
+        /// <param name="self">当前边</param>
+        /// <param name="boundary">图形边界</param>
+        /// <returns>在边未重合的前提下，当前边相对于boundary是进入还是出去</returns>
+        private bool isFromInnerToOuter(Line self, Line boundary)
+        {
+            int x0 = boundary.p2.X - boundary.p1.X;
+            int y0 = boundary.p2.Y - boundary.p1.Y;
+            int x = self.p2.X - self.p1.X;
+            int y = self.p2.Y - self.p1.Y;
+            
+            // straight line up and down
+            if (x0 == 0)
+            {
+                if (y0 > 0)
+                {
+                    return x < 0; 
+                }
+                return x > 0;
+            }
+
+            double k0 = (double)y0 / x0;
+            double k = (double)y / x;
+
+            if (x0 > 0)
+            {
+                return y > k0 * x;
+            }
+            return y < k0 * x;
+
         }
     }
 
     public class LiangBarsky: Algorithm
     {
-        public void apply(Bitmap bmp)
+        public List<Point> apply(List<Point> lpImg, List<Point> lpWindow, Bitmap bmp)
         {
             Console.WriteLine("LiangBarsky Algorithm");
         }
